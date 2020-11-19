@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from . import models
 from . import forms
 # from django.http import HttpResponse
@@ -11,7 +11,7 @@ class HomeView(ListView):
     template_name = 'home.html'
 
 class ArticleDetailView(DetailView):
-    model = forms.PostForm
+    model = forms.Post
     template_name = 'article_details.html'
 
 class AddPostView(CreateView):
@@ -19,3 +19,7 @@ class AddPostView(CreateView):
     form_class = forms.PostForm
     template_name = 'add_post.html'
 
+class EditPostView(UpdateView):
+    model = models.Post
+    form_class = forms.EditForm
+    template_name = 'edit_post.html'
