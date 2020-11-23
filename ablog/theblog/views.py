@@ -3,6 +3,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from . import models
 from . import forms
 from django.urls import  reverse_lazy
+from django.shortcuts import  redirect
 # from django.http import HttpResponse
 # Create your views here.
 # def home(req):
@@ -25,6 +26,12 @@ class EditPostView(UpdateView):
     model = models.Post
     form_class = forms.EditForm
     template_name = 'edit_post.html'
+    def get(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect(reverse_lazy('login'))
+        else:
+            context = self.get_context_data(**kwargs)
+            return self.render_to_response(context)
 
 class DeletePostView(DeleteView):
     model = models.Post
