@@ -8,7 +8,7 @@
 <small>By: {{post.author.first_name}} {{post.author.last_name}}</small> <br>
 <hr>
 <br>
-{{ post.body }}
+{{ post.body | safe }}
 <small class="float-right">{{post.post_date}}</small>
 <br>
 {% if user.is_authenticated %}
