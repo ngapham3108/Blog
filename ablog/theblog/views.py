@@ -30,10 +30,14 @@ class EditPostView(UpdateView):
         if not request.user.is_authenticated:
             return redirect(reverse_lazy('login'))
         else:
-            context = self.get_context_data(**kwargs)
-            return self.render_to_response(context)
+            return super().get(request, *args, **kwargs)
 
 class DeletePostView(DeleteView):
     model = models.Post
     template_name = 'delete_post.html'
     success_url = reverse_lazy('home')
+    def get(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect(reverse_lazy('login'))
+        else:
+            return super().get(request, *args, **kwargs)
