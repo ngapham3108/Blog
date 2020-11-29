@@ -7,4 +7,6 @@ urlpatterns = [
     path('addpost/', views.AddPostView.as_view(), name='add-post'),
     path('article/edit/<pk>', views.EditPostView.as_view(), name='edit-post'),
     path('article/delete/<pk>', views.DeletePostView.as_view(), name='delete-post'),
+    path('category/<cat>', views.CategoryView, name='category-filter'),
+
 ]

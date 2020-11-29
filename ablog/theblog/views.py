@@ -13,6 +13,17 @@ class HomeView(ListView):
     template_name = 'home.html'
     ordering = ['-post_date']
 
+    def get_context_data(self, *, object_list=None, **kwargs):
+        try:
+            cat_menu = models.Category.objects.all()
+        except:
+            cat_menu = {}
+        context = super().get_context_data(**kwargs)
+        context['cat_menu'] = cat_menu
+        return context
+
+
+
 class ArticleDetailView(DetailView):
     model = forms.Post
     template_name = 'article_details.html'
@@ -41,3 +52,15 @@ class DeletePostView(DeleteView):
             return redirect(reverse_lazy('login'))
         else:
             return super().get(request, *args, **kwargs)
+
+def CategoryView(req, cat):
+    try:
+        cat_posts = models.Post.objects.filter(cats=cat)
+    except:
+        cat_posts = {}
+    try:
+        cat_menu = models.Category.objects.all()
+    except:
+        cat_posts = {}
+
+    return render(req, 'category_filter.html', {'post_list': cat_posts, 'cat_menu': cat_menu})
