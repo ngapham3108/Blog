@@ -1,10 +1,12 @@
 from django import forms
 from .models import Post, Category
-
-list_category = Category.objects.all()
 choices = []
-for cat in list_category:
-    choices.append((cat.name, cat.name))
+try:
+    list_category = Category.objects.all()
+    for cat in list_category:
+        choices.append((cat.name, cat.name))
+except:
+    pass
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
