@@ -11,7 +11,7 @@
 {{ post.body | safe }}
 <small class="float-right">{{post.post_date}}</small>
 <br>
-{% if user.is_authenticated %}
+{% if user.is_authenticated and user.id == post.author.id %}
 <a href="{% url 'edit-post' post.pk %}" class="btn btn-secondary btn-sm"> Edit </a>
 <a href="{% url 'delete-post' post.pk %}" class="btn btn-secondary btn-sm"> Delete </a>
 {% endif %}

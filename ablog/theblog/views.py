@@ -40,6 +40,8 @@ class EditPostView(UpdateView):
     def get(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
             return redirect(reverse_lazy('login'))
+        if str(request.user.id) != kwargs['pk']:
+            return redirect(reverse_lazy('home'))
         else:
             return super().get(request, *args, **kwargs)
 
@@ -50,6 +52,8 @@ class DeletePostView(DeleteView):
     def get(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
             return redirect(reverse_lazy('login'))
+        if str(request.user.id) != kwargs['pk']:
+            return redirect(reverse_lazy('home'))
         else:
             return super().get(request, *args, **kwargs)
 
