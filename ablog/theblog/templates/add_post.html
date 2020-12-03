@@ -9,4 +9,8 @@
     {{ form.as_p }}
     <button class="btn btn-secondary btn-sm float-right"> Post </button>
 </form>
+<script>
+    authorElement = document.getElementById('author');
+    authorElement.value = {{ user.id }}
+</script>
 {% endblock %}

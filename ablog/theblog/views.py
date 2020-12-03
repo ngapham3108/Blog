@@ -4,6 +4,7 @@ from . import models
 from . import forms
 from django.urls import  reverse_lazy
 from django.shortcuts import  redirect
+from django.http import HttpResponseNotAllowed
 # from django.http import HttpResponse
 # Create your views here.
 # def home(req):
@@ -32,6 +33,12 @@ class AddPostView(CreateView):
     model = models.Post
     form_class = forms.PostForm
     template_name = 'add_post.html'
+
+    def post(self, request, *args, **kwargs):
+        if request.POST.get('author') != str(request.user.id):
+            print('hit')
+            return HttpResponseNotAllowed("Wrong Info !!!!!")
+        return super().post(request, *args, **kwargs)
 
 class EditPostView(UpdateView):
     model = models.Post
